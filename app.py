@@ -51,12 +51,25 @@ print(stock_data.columns)
 
 
 #------ Time Resampling --------
+# resample() command used to change the time frequency of time-series data.It mainly used when dataset has a date/time index.
 import pandas as pd
 print(pd.date_range(start="07-1-2025",end="7-30-2025",freq='W'))   # W=Weekly frequency ( all other information given in python document)
-
 df1=pd.read_csv("Nifty 50 Historical Data.csv")
 print(df1.info())
-df1=df1.rename(columns={"Price":"Close"})
-#print(df1.head())
+print(df1.head())
+df2=pd.read_csv("Nifty 50 Historical Data.csv",parse_dates=["Date"],index_col="Date")# parse_dates convert "Date feature into datetime format" # index_col set "Date" feature as index
+print(df2.info())
+print(df2.head())
+df2=df2.rename(columns={"Price":"Close"})
+print(df2.head())
+print(df2.iloc[0])  # give index 0( row) data
+print(df2.sort_index())# sort index to confirm date are in increasing order
 
+# resample() groups time data into different time intervals(day,week,month,etc) and thenn applies a function like sum, mean, max etc.
+df2["Close"]=df2["Close"].str.replace(",","").astype(float)
+print(df2.info())
+#df2["Close"].resample(rule="M").mean()  # it represent "M" monthwise avg of Close value
+df2["Close"].resample(rule="ME").mean().plot(kind="bar")
+df2["Close"].resample(rule="Y").mean().plot(kind="bar",figsize=(12,5))
+plt.show()
 
