@@ -70,6 +70,6 @@ df2["Close"]=df2["Close"].str.replace(",","").astype(float)
 print(df2.info())
 #df2["Close"].resample(rule="M").mean()  # it represent "M" monthwise avg of Close value
 df2["Close"].resample(rule="ME").mean().plot(kind="bar")
-df2["Close"].resample(rule="Y").mean().plot(kind="bar",figsize=(12,5))
+df2["Close"].resample(rule="YE").mean().plot(kind="bar",figsize=(12,5))
 plt.show()
 
